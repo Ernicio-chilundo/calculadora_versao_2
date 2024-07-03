@@ -8,10 +8,10 @@ let novoNumero = true
 let operador;
 let numeroAnterior;
 
-const opracaoPendente =()=> operador != undefined
+const opracaoPendente = () => operador != undefined
 
-const calcular= ()=>{ 
-    if(opracaoPendente()){
+const calcular = () => {
+    if (opracaoPendente()) {
         const numeroAtual = parseFloat(display.textContent)
         novoNumero = true
 
@@ -53,22 +53,41 @@ const selecionarOperador = (evento) => {
 }
 operadores.forEach(operador => operador.addEventListener("click", selecionarOperador))
 
-const ativarIgual= ()=>{
+const ativarIgual = () => {
     calcular()
     operador = undefined
 }
-document.getElementById("igual").addEventListener("click",ativarIgual)
+document.getElementById("igual").addEventListener("click", ativarIgual)
 
-const limparDisplay =()=> display.textContent =""
-document.getElementById("limparDisplay").addEventListener("click",limparDisplay)
+const limparDisplay = () => display.textContent = ""
+document.getElementById("limparDisplay").addEventListener("click", limparDisplay)
 
-const limparCalculo =()=>{
+const limparCalculo = () => {
     limparDisplay()
     operador = undefined
-    novoNumero =true
-    numeroAnterior=undefined
+    novoNumero = true
+    numeroAnterior = undefined
 }
-document.getElementById("limparCalculo").addEventListener("click",limparCalculo)
+document.getElementById("limparCalculo").addEventListener("click", limparCalculo)
 
-const remmoverUltimoNumero=()=>display.textContent = display.textContent.slice(0,-1)
-document.getElementById("backSpace").addEventListener("click",remmoverUltimoNumero)
+const remmoverUltimoNumero = () => display.textContent = display.textContent.slice(0, -1)
+document.getElementById("backSpace").addEventListener("click", remmoverUltimoNumero)
+
+const inverterSinal = () => {
+    novoNumero = true
+    atualizarDisplay(display.textContent * -1)
+}
+document.getElementById("Inverter").addEventListener("click", inverterSinal)
+
+const existeDecimal = () => display.textContent.indexOf(",") != -1;
+const existeValor =()=> display.textContent.length > 0;
+const inserirDecimal = () => {
+    if (!existeDecimal()) {
+        if (existeValor()) {
+            atualizarDisplay(",")
+        } else {
+            atualizarDisplay("0,")
+        }
+    }
+}
+document.getElementById("decimal").addEventListener("click", inserirDecimal)
